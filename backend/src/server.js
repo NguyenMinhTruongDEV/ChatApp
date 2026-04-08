@@ -5,6 +5,8 @@ import { connectDB } from "./libs/db.js";
 import authRouter from "./routers/auth.route.js";
 import userRouter from "./routers/user.route.js";
 import friendRouter from "./routers/friend.route.js";
+import messageRouter from "./routers/message.route.js";
+import conversationRouter from "./routers/conversation.route.js";
 import cookieParser from "cookie-parser";
 import { protectedRoute } from "./middlewares/auth.middleware.js";
 dotenv.config();
@@ -27,6 +29,8 @@ app.use("/api/auth", authRouter);
 app.use(protectedRoute);
 app.use("/api/users", userRouter);
 app.use("/api/friends", friendRouter);
+app.use("/api/messages", messageRouter);
+app.use("/api/conversations", conversationRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
