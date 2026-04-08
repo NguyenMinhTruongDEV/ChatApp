@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./libs/db.js";
 import authRouter from "./routers/auth.route.js";
 import userRouter from "./routers/user.route.js";
+import friendRouter from "./routers/friend.route.js";
 import cookieParser from "cookie-parser";
 import { protectedRoute } from "./middlewares/auth.middleware.js";
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/auth", authRouter);
 // private routes
 app.use(protectedRoute);
 app.use("/api/users", userRouter);
+app.use("/api/friends", friendRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
