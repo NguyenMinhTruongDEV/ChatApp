@@ -6,7 +6,7 @@ export const authMe = async (req, res) => {
     return res.status(200).json({
       statusCode: 200,
       message: "Hehe AuthMe",
-      data: user
+      user: user
     });
   } catch (error) {
     console.error("Lỗi khi gọi AuthMe", error);

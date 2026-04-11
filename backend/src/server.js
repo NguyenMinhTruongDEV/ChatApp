@@ -10,8 +10,9 @@ import conversationRouter from "./routers/conversation.route.js";
 import cookieParser from "cookie-parser";
 import { protectedRoute } from "./middlewares/auth.middleware.js";
 dotenv.config();
+import { app, server } from "./socket/index.js";
 
-const app = express();
+// const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middlewares
@@ -33,7 +34,7 @@ app.use("/api/messages", messageRouter);
 app.use("/api/conversations", conversationRouter);
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server bắt đầu trên cổng ${PORT}`);
   })
 }).catch((error) => {
