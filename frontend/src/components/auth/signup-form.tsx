@@ -71,7 +71,7 @@ export function SignupForm({
                   />
                   {/* todo: error message */}
                   {errors.lastname && (
-                    <p className="text-destructive text-sm">
+                    <p className="error-message">
                       {errors.lastname.message}
                     </p>
                   )}
@@ -87,7 +87,7 @@ export function SignupForm({
                   />
                   {/* todo: error message */}
                   {errors.firstname && (
-                    <p className="text-destructive text-sm">
+                    <p className="error-message">
                       {errors.firstname.message}
                     </p>
                   )}
@@ -110,7 +110,7 @@ export function SignupForm({
                 />
                 {/* todo: error message */}
                 {errors.username && (
-                  <p className="text-destructive text-sm">
+                  <p className="error-message">
                     {errors.username.message}
                   </p>
                 )}
@@ -131,7 +131,7 @@ export function SignupForm({
                 />
                 {/* todo: error message */}
                 {errors.email && (
-                  <p className="text-destructive text-sm">
+                  <p className="error-message">
                     {errors.email.message}
                   </p>
                 )}
@@ -152,7 +152,7 @@ export function SignupForm({
                 />
                 {/* todo: error message */}
                 {errors.password && (
-                  <p className="text-destructive text-sm">
+                  <p className="error-message">
                     {errors.password.message}
                   </p>
                 )}

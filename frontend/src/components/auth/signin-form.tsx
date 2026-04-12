@@ -69,7 +69,7 @@ export function SignInForm({
                 />
                 {/* todo: error message */}
                 {errors.username && (
-                  <p className="text-destructive text-sm">
+                  <p className="error-message">
                     {errors.username.message}
                   </p>
                 )}
@@ -92,7 +92,7 @@ export function SignInForm({
                 />
                 {/* todo: error message */}
                 {errors.password && (
-                  <p className="text-destructive text-sm">
+                  <p className="error-message">
                     {errors.password.message}
                   </p>
                 )}
