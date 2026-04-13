@@ -3,6 +3,7 @@ import type { ChatState } from "@/types/store";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useAuthStore } from "./useAuthStore";
+import { useSocketStore } from "./useSocketStore";
 
 export const useChatStore = create<ChatState>()(
   persist(
@@ -162,17 +163,17 @@ export const useChatStore = create<ChatState>()(
           const { user } = useAuthStore.getState();
           const { activeConversationId, conversations } = get();
 
-          if(!activeConversationId || !user) {
+          if (!activeConversationId || !user) {
             return;
           };
 
           const convo = conversations.find((c) => c._id === activeConversationId);
 
-          if(!convo) {
+          if (!convo) {
             return;
           }
 
-          if((convo.unreadCounts?.[user._id] ?? 0) === 0) {
+          if ((convo.unreadCounts?.[user._id] ?? 0) === 0) {
             return;
           }
 
@@ -187,13 +188,35 @@ export const useChatStore = create<ChatState>()(
                   [user._id]: 0
                 }
               }
-              : c
+                : c
             ))
           }));
         } catch (error) {
           console.error("Lỗi xảy ra khi gọi markAsSeen trong store", error);
         }
-      }
+      },
+      addConvo: async (convo) => {
+        set((state) => {
+          const exists = state.conversations.some((c) => c._id.toString() === convo._id.toString());
+
+          return {
+            conversations: exists ? state.conversations : [convo, ...state.conversations],
+            activeConversationId: convo._id,
+          }
+        })
+      },
+      createConversation: async (type, name, memberIds) => {
+        try {
+          const conversation = await chatService.createConversation(type, name, memberIds);
+
+          get().addConvo(conversation);
+
+          useSocketStore.getState().socket?.emit("join-conversation", conversation._id)
+
+        } catch (error) {
+          console.error("Lỗi xảy ra khi gọi createConversations", error);
+        }
+      },
     }),
     {
       name: "chat-storage",

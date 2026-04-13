@@ -29,7 +29,7 @@ const ReceivedRequests = () => {
       await declineRequest(requestId);
       toast.info("Đã từ chối kết bạn.");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
